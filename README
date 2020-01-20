@@ -1,0 +1,20 @@
+A To Do list. Maybe even a bullet journal thingie
+
+The features:
+1) Daily tasks
+2) Weekly tasks
+3) Monthly tasks
+
+Nice to haves:
+1) Analysis of tasks done
+	a) Graphs/stats of average and so forth
+2) GUI
+	a) crossed off tasks
+
+This requires dates, SQL to store data and various get/set commands to...get and set data. Maybe try to implement a GUI if I feel froggy (i.e. JavaScript, CSS, HTML and what have you)
+
+I feel this will be a big project since I won't stop polishing it up
+
+But I think it will be good. Definitely need to start making using my GitHub to store and pull and push from various computers
+
+
