@@ -18,7 +18,7 @@ import "github.com/spf13/viper"
 
 func main(){
 
-  //May be able to do put in a function? But for now, just reads the config
+  //May be able to put in a function? But for now, just reads the config
   //file
   viper.SetConfigName("config")
   viper.AddConfigPath("$GOPATH/src/toDoProgram")
