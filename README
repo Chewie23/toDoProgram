@@ -1,20 +1,39 @@
 A To Do list. Maybe even a bullet journal thingie
 
+The design doc:
+Have a SQL database to set/get entries. Would need various tables/columns
+for to do, and completed. Also dates to catalog. And a way to have completed
+tasks go back to open, in case
+
 The features:
-1) Daily tasks
-2) Weekly tasks
-3) Monthly tasks
+1) Add
+2) Delete
+3) Ability to preview tasks
+	a) Daily
+	b) Weekly
+	c) Monthly
+4) Review completed tasks
+	a) Conversely, undo a completed task to be open
+
 
 Nice to haves:
 1) Analysis of tasks done
 	a) Graphs/stats of average and so forth
 2) GUI
 	a) crossed off tasks
+3) Convert to a Bullet Journal?
+	a) This may be too much?
+4) Repeat tasks if multiple throughout various times?
 
+Questions:
+1) How to organize the different API's/SQL calls? 
+	a) In terms of Go?
+	b) In terms of MySQL?
+
+Comments:
 This requires dates, SQL to store data and various get/set commands to...get and set data. Maybe try to implement a GUI if I feel froggy (i.e. JavaScript, CSS, HTML and what have you)
 
 I feel this will be a big project since I won't stop polishing it up
 
 But I think it will be good. Definitely need to start making using my GitHub to store and pull and push from various computers
-
 
