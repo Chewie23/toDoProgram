@@ -9,7 +9,11 @@ lying MySQL to do things. Which makes sense.
 Following this tutorial:
 http://go-database-sql.org/index.html
 
-And using best practices with a config file for SQL access
+And using best practices with a config file for SQL access.
+
+This is definitely a prototype and will definitely need to be refactored into
+something more robust in terms of code organization. Having a massive main file
+is not very useful
 */
 import "database/sql"
 import _ "github.com/go-sql-driver/mysql"
