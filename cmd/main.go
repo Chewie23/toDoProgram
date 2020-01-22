@@ -1,6 +1,8 @@
 package main
 
 import "fmt"
+import "time"
+import "log"
 
 /*
 So, Golang depends on drivers to access the SQL. Seems like I need the under-
@@ -33,9 +35,11 @@ func main(){
   }
 
   mysqluser, mysqlpass, mysqlport, mysqldb := viper.GetString("database.dbuser"),
-  viper.GetString("database.dbpassword"), viper.GetString("server.port"), viper.GetString("database.dbname")
+  viper.GetString("database.dbpassword"), viper.GetString("server.port"),
+  viper.GetString("database.dbname")
 
-  dbstr := fmt.Sprintf("%s:%s@tcp(127.0.0.1:%s)/%s", mysqluser, mysqlpass, mysqlport, mysqldb)
+  dbstr := fmt.Sprintf("%s:%s@tcp(127.0.0.1:%s)/%s?parseTime=true", mysqluser,
+  mysqlpass, mysqlport, mysqldb)
 
   db, err := sql.Open("mysql", dbstr)
 	if err != nil {
@@ -46,7 +50,28 @@ func main(){
   	fmt.Println("Something went wrong pinging db")
     fmt.Println(err)
   }
+
+  var (
+    date time.Time
+    entry string
+  )
+  rows, err := db.Query("select date, entry from to_do")
+
+  if err != nil {
+	log.Fatal(err)
+  }
   //Remember to always close your connections. They are long lived
 	defer db.Close()
-  fmt.Println("Hello World")
+  for rows.Next() {
+    //Interesting. I wonder why we need to have the variable reference?
+  	err := rows.Scan(&date, &entry)
+  	if err != nil {
+  		log.Fatal(err)
+    }
+  	log.Println(date, entry)
+  }
+  err = rows.Err()
+  if err != nil {
+	   log.Fatal(err)
+   }
 }
