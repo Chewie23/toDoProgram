@@ -55,13 +55,27 @@ func main(){
     date time.Time
     entry string
   )
-  rows, err := db.Query("select date, entry from to_do")
+
+  //A Prepared Statement. Good for security and reusability, but if the statement
+  //isn't used again, maaaay not be worth the overhead
+  //In this case, it's probably not worth it
+  stmt, err := db.Prepare("select date, entry from to_do")
+  if err != nil {
+	  log.Fatal(err)
+  }
+  defer stmt.Close()
+
+  rows, err := stmt.Query()
 
   if err != nil {
-	log.Fatal(err)
+	  log.Fatal(err)
   }
-  //Remember to always close your connections. They are long lived
+  //Remember to always close your connections, as a defer OUTSIDE a loop/func. They are long lived
+  //Don't open/close connections over and over again. Keep it open until finished
+  //i.e. pass connection into functions
 	defer db.Close()
+  defer rows.Close()
+
   for rows.Next() {
     //Interesting. I wonder why we need to have the variable reference?
   	err := rows.Scan(&date, &entry)
@@ -74,4 +88,5 @@ func main(){
   if err != nil {
 	   log.Fatal(err)
    }
+
 }
