@@ -1,0 +1,10 @@
+Golang Code Organization:
+
+Tips on why and what to do
+https://peter.bourgon.org/go-best-practices-2016/#repository-structure
+
+Examples and best practices from real github projects
+https://github.com/golang-standards/project-layout
+
+More advice on code organization
+https://rakyll.org/style-packages/
