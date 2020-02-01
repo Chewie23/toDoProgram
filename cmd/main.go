@@ -1,8 +1,6 @@
 package main
 
-import "time"
-import "log"
-import "toDoProgram/internal/db"
+import "toDoProgram/pkg/query"
 //import cmd "toDoProgram/pkg/query"
 
 /*
@@ -21,44 +19,14 @@ is not very useful
 
 func main(){
 
-  conn := db.GetLogin()
+  q := query.NewQuery()
+  defer q.CloseDB()
+  q.PrintRows()
 
-  var (
-    date time.Time
-    entry string
-  )
+
 
   //A Prepared Statement. Good for security and reusability, but if the statement
   //isn't used again, maaaay not be worth the overhead
   //In this case, it's probably not worth it
-  stmt, err := conn.Prepare("select date, entry from to_do")
-  if err != nil {
-	  log.Fatal(err)
-  }
-  defer stmt.Close()
-
-  rows, err := stmt.Query()
-
-  if err != nil {
-	  log.Fatal(err)
-  }
-  //Remember to always close your connections, as a defer, OUTSIDE a loop/func. They are long lived
-  //Don't open/close connections over and over again. Keep it open until finished
-  //i.e. pass connection into functions
-	defer conn.Close()
-  defer rows.Close()
-
-  for rows.Next() {
-    //Interesting. I wonder why we need to have the variable reference?
-  	err := rows.Scan(&date, &entry)
-  	if err != nil {
-  		log.Fatal(err)
-    }
-  	log.Println(date, entry)
-  }
-  err = rows.Err()
-  if err != nil {
-	   log.Fatal(err)
-   }
 
 }
