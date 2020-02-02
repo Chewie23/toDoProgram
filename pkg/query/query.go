@@ -43,10 +43,15 @@ func (q *query) SetStatement(db_str string) {
 
   //See:
   //https://nathanleclaire.com/blog/2014/08/09/dont-get-bitten-by-pointer-vs-non-pointer-method-receivers-in-golang/
+  //https://stackoverflow.com/questions/27775376/value-receiver-vs-pointer-receiver
 
-  //May be able to break up this method to have
-  //the string to have "select <VAR> from <VAR>"
-  //But for now, leaving it super generic
+  //In general, if you aren't using concurrency, then if you have ONE pointer receiver then
+  //for consistency, just have it all pointer receivers. This is just for sake of ease and readability
+  //BUT, in terms of this case? I think it'll be fine to leave as is. Since we only need a pointer
+  //receiver to affect the struct data, the rest will be alright to work with a value receiver
+  //(this is because the struct data itself is unaffected, but the SQL pointer struct is affected, but we
+  //don't care at this scope)
+
   q.stmt, q.err = q.conn.Prepare(db_str)
   if q.err != nil {
     log.Fatal(q.err)
@@ -94,5 +99,10 @@ func (q query) PrintRows() {
 }
 
 func (q query) AddEntry(entry_str string) {
-  fmt.Println("Placeholder")
+  //TODO
+  //Figure out how to insert a Golang time stamp INTO MySQL
+  //Maybe helpful:
+  //http://rafalgolarz.com/blog/2017/08/27/mysql_timestamps_in_go/
+  var db_str = fmt.Sprintf("INSERT INTO to_do(date, entry) VALUES(%s)", entry_str)
+  fmt.Println(db_str)
 }
