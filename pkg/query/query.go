@@ -103,6 +103,8 @@ func (q query) AddEntry(entry_str string) {
   //Figure out how to insert a Golang time stamp INTO MySQL
   //Maybe helpful:
   //http://rafalgolarz.com/blog/2017/08/27/mysql_timestamps_in_go/
-  var db_str = fmt.Sprintf("INSERT INTO to_do(date, entry) VALUES(%s)", entry_str)
+
+  //This is a placeholder and will not work as is
+  var db_str = fmt.Sprintf("INSERT INTO to_do(date, entry) VALUES(<DATE>, %s)", entry_str)
   fmt.Println(db_str)
 }
