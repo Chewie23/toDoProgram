@@ -105,6 +105,8 @@ func (q query) AddEntry(entry_str string) {
   //http://rafalgolarz.com/blog/2017/08/27/mysql_timestamps_in_go/
 
   //This is a placeholder and will not work as is
-  var db_str = fmt.Sprintf("INSERT INTO to_do(date, entry) VALUES(<DATE>, %s)", entry_str)
+  var t = time.Now()
+  var ts = t.Format("2006-01-02 15:04:05")
+  var db_str = fmt.Sprintf("INSERT INTO to_do(date, entry) VALUES(%s, %s)", ts, entry_str)
   fmt.Println(db_str)
 }

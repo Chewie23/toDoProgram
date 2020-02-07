@@ -21,7 +21,8 @@ func main(){
 
   q := query.NewQuery()
   defer q.CloseDB()
-  q.PrintRows()
+  q.AddEntry("Another test entry with current timestamp")
+  //q.PrintRows()
 
 
 
